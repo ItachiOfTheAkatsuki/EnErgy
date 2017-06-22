@@ -319,3 +319,5 @@ public class FareCalcActivity extends AppCompatActivity {
         return Double.valueOf(df2.format(val));
     }
 }
+
+//trying
