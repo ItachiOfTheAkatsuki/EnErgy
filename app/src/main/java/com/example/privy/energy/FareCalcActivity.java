@@ -178,10 +178,13 @@ public class FareCalcActivity extends AppCompatActivity {
                     pow = Integer.parseInt(et_power.getText().toString());
                 }
             });*/
-            return;
+
             //AlertDialog alertDialog = builder.create();
             //alertDialog.show();
             //Log.d("User input power",""+pow);
+
+
+            return;
         }
         else {
             int idx = Arrays.asList(devices).indexOf(currentDevice);
