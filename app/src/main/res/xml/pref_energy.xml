@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_frag"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
+    <CheckBoxPreference
+        android:defaultValue="@bool/pref_dark_theme"
+        android:key="@string/pref_dark_theme_key"
+        android:title="@string/pref_dark_theme_title"/>
+        -->
+
+    <SwitchPreferenceCompat
+        android:id="@+id/dark_theme_switch"
+        android:defaultValue="@bool/pref_dark_theme_bool"
+        android:key="@string/pref_dark_theme_key"
+        android:title="@string/pref_dark_theme_title" />
+    <!--<ListPreference
+        android:key="@string/pref_language_key"
+        android:title="@string/pref_language_title"
+        android:entries="@array/language"
+        android:entryValues="@array/languageAlias"
+        android:defaultValue="en"/>-->
+    <ListPreference
+        android:id="@+id/language_list_pref"
+        android:key="SELECTED_LANGUAGE"
+        android:title="@string/pref_language_title"
+        android:entries="@array/language"
+        android:entryValues="@array/languageAlias"
+        android:defaultValue="1"/>
+</PreferenceScreen>

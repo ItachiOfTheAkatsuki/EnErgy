@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Energy</string>
+    <string name="next">അടുത്തത്</string>
+    <string name="provider">നിങ്ങളുടെ വൈദ്യുതി ദാതാവിനെ തിരഞ്ഞെടുക്കുക</string>
+    <string name="singlePhase">സിംഗിൾ ഫെയിസ്</string>
+    <string name="title_activity_settings">സെറ്റിങ്സ്</string>
+    <string name="threePhase">ത്രീ ഫെയിസ്</string>
+    <string name="pref_dark_theme_title">ഇരുണ്ട തീം</string>
+    <string name="addDevice">ഉപകരണം ചേർക്കുക</string>
+    <string name="clearButton">വീണ്ടും തുടങ്ങുക</string>
+    <string name="deviceHint">ഉപകരണത്തിന്റെ പേര്</string>
+    <string name="deviceText">ഉപകരണങ്ങൾ</string>
+    <string name="pref_language_title">ഭാഷ</string>
+    <string name="timeHint">കാലയളവ്</string>
+    <string name="timeText">സമയം (മണിക്കൂറുകളിൽ)</string>
+    <string name="totalCharges">മുഴുവൻ തുക</string>
+</resources>
