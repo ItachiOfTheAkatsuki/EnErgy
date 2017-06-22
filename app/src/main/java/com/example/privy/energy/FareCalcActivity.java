@@ -1,6 +1,9 @@
 package com.example.privy.energy;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -43,6 +46,7 @@ public class FareCalcActivity extends AppCompatActivity {
     String lan;
 
     private int pow;
+    float time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +143,6 @@ public class FareCalcActivity extends AppCompatActivity {
         TextView tv_time = new TextView(FareCalcActivity.this);
         EditText dTime = (EditText) findViewById(R.id.et_time);
 
-        float time;
         try {
             time = Float.parseFloat(dTime.getText().toString());
         } catch (NumberFormatException e) {
@@ -156,7 +159,16 @@ public class FareCalcActivity extends AppCompatActivity {
             //add code for dialog here
             /*AddCustomDevice customDevice = new AddCustomDevice();
             customDevice.show(getFragmentManager(), "CustomDevice");
+
+
             pow = customDevice.getPower();
+            while(customDevice.getPower()==-1) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                }
+            }
+
             if (customDevice.getPower() != -1) {
                 pow = customDevice.getPower();
                 Log.d("custom power", "= " + pow);
@@ -165,7 +177,7 @@ public class FareCalcActivity extends AppCompatActivity {
                 return;
             }*/
 
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(R.layout.add_device_dialog);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
@@ -176,12 +188,26 @@ public class FareCalcActivity extends AppCompatActivity {
                     if (et_power == null)
                         Log.d("alert","null");
                     pow = Integer.parseInt(et_power.getText().toString());
+                    if (phase == 3)
+                        pow *= 1.732;
+
+
+                    switch (region) {
+                        case 0:
+                            calcFareKSEB(pow, time);
+                            break;
+                        default:
+                            Log.d("FareCalcActivity: ", "Coming soon...");
+                    }
                 }
-            });*/
-            return;
-            //AlertDialog alertDialog = builder.create();
-            //alertDialog.show();
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
             //Log.d("User input power",""+pow);
+
+
+            //return;
         }
         else {
             int idx = Arrays.asList(devices).indexOf(currentDevice);
@@ -232,13 +258,13 @@ public class FareCalcActivity extends AppCompatActivity {
             cost = totalUnits * 6.7;
         else
             cost = totalUnits * 7.5;
-        switch (phase) {
+        /*switch (phase) {
             case 1:
                 cost += 40;
                 break;
             case 3:
                 cost += 120;
-        }
+        }*/
         cost += 0.1 * cost;
         cost = roundTo2Decimals(cost);
         TextView tv_charges = (TextView) findViewById(R.id.tv_charges);
