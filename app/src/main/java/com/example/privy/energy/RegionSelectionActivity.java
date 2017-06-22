@@ -156,7 +156,7 @@ public class RegionSelectionActivity extends AppCompatActivity {
     }
 
     public void clickedNext(View v) {
-        if (Integer.parseInt(pos) > 0) {
+        if (Integer.parseInt(pos) > 1) {
             Toast.makeText(RegionSelectionActivity.this, "Please select an available energy provider.", Toast.LENGTH_SHORT).show();
             return;
         }
