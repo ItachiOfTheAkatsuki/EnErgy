@@ -142,7 +142,9 @@
                     android:layout_height="40sp"
                     android:layout_weight="1"
                     android:hint="@string/timeHint"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:scrollHorizontally="true"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"/>
                 <!--android:backgroundTint="#1565C0"-->
             </LinearLayout>
 

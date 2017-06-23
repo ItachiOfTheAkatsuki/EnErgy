@@ -42,9 +42,6 @@ public class RegionSelectionActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         dark_theme = sharedPreferences.getBoolean(getString(R.string.pref_dark_theme_key), getResources().getBoolean(R.bool.pref_dark_theme_bool));
-        //Button nextButton=(Button) findViewById(R.id.button_next);
-        //LinearLayout buttonLayout=(LinearLayout) findViewById(R.id.next_button_layout);
-
 
         if (dark_theme) {
             setTheme(R.style.AppThemeDark);
@@ -52,7 +49,6 @@ public class RegionSelectionActivity extends AppCompatActivity {
         else {
             setTheme(R.style.AppTheme);
         }
-        //lan=sharedPreferences.getString(getString(R.string.pref_language_key),"en");
         lan=sharedPreferences.getString("SELECTED_LANGUAGE","en");
 
         setContentView(R.layout.activity_region_selection);
@@ -97,13 +93,6 @@ public class RegionSelectionActivity extends AppCompatActivity {
             this.finish();
             this.startActivity(new Intent(this, this.getClass()));
         }
-        /*if (!lan.equals(sharedPreferences.getString(getString(R.string.pref_language_key),"en"))) {
-            Log.d("onRes:lan",""+lan);
-            lan=sharedPreferences.getString(getString(R.string.pref_language_key),"en");
-            Log.d("onRes:lan",""+lan);
-            this.finish();
-            this.startActivity(new Intent(this, this.getClass()));
-        }*/
         if(lan!=sharedPreferences.getString("SELECTED_LANGUAGE","en")) {
             Log.d("inside lang change if","here");
             lan = sharedPreferences.getString("SELECTED_LANGUAGE", "en");
@@ -123,6 +112,17 @@ public class RegionSelectionActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflator = getMenuInflater();
+        menu.add("?");
+        menu.getItem(0).setIcon(R.drawable.help);
+        menu.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent startHelpActivity = new Intent(getApplicationContext(), HelpActivity.class);
+                startActivity(startHelpActivity);
+                return true;
+            }
+        });
         inflator.inflate(R.menu.energy_menu, menu);
         return true;
     }
@@ -133,6 +133,11 @@ public class RegionSelectionActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
             startActivity(startSettingsActivity);
+            return true;
+        }
+        else if (id == R.id.action_about) {
+            Intent startAboutActivity = new Intent(this, AboutActivity.class);
+            startActivity(startAboutActivity);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -68,7 +68,7 @@ public class FareCalcActivity extends AppCompatActivity {
 
 
         tv_devices = (AutoCompleteTextView) findViewById(tv_device);
-        Log.d("FareCalcAct","HERE");
+        Log.d("FareCalcAct", "HERE");
 
         //get data from RegionSelectionActivity
         Bundle bundle = getIntent().getExtras();
@@ -122,6 +122,17 @@ public class FareCalcActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflator = getMenuInflater();
+        menu.add("?");
+        menu.getItem(0).setIcon(R.drawable.help);
+        menu.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent startHelpActivity = new Intent(getApplicationContext(), HelpActivity.class);
+                startActivity(startHelpActivity);
+                return true;
+            }
+        });
         inflator.inflate(R.menu.energy_menu, menu);
         return true;
     }
@@ -133,6 +144,10 @@ public class FareCalcActivity extends AppCompatActivity {
             Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
             startActivity(startSettingsActivity);
             return true;
+        } else if (id == R.id.action_about) {
+            Intent startAboutActivity = new Intent(this, AboutActivity.class);
+            startActivity(startAboutActivity);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -141,9 +156,9 @@ public class FareCalcActivity extends AppCompatActivity {
     public void addList(View v) {
         String currentDeviceName = tv_devices.getText().toString().toUpperCase();
 
-        Log.d("addList","1");
+        Log.d("addList", "1");
         if (!Arrays.asList(devices).contains(currentDeviceName)) {
-            Log.d("addList","2");
+            Log.d("addList", "2");
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(R.layout.add_device_dialog);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -151,11 +166,10 @@ public class FareCalcActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     Dialog f = (Dialog) dialog;
                     EditText et_power = (EditText) f.findViewById(R.id.et_power);
-                    int pow=-1;
+                    int pow = -1;
                     try {
                         pow = Integer.parseInt(et_power.getText().toString());
-                    }
-                    catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException nfe) {
                         Toast.makeText(FareCalcActivity.this, "Please enter a whole number for power field.", Toast.LENGTH_SHORT).show();
                     }
                     furtherCalcs(pow);
@@ -164,20 +178,18 @@ public class FareCalcActivity extends AppCompatActivity {
 
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-        }
-        else {
-            Log.d("addList","3");
-            int pow=-1;
+        } else {
+            Log.d("addList", "3");
+            int pow = -1;
             try {
                 int idx = Arrays.asList(devices).indexOf(currentDeviceName);
                 pow = power[idx];
+            } catch (Exception e) {
+                Log.d("else", "" + e);
             }
-            catch (Exception e){
-                Log.d("else",""+e);
-            }
-            Log.d("new addList()","1");
+            Log.d("new addList()", "1");
             furtherCalcs(pow);
-            Log.d("new addList()","2");
+            Log.d("new addList()", "2");
         }
     }
 
@@ -192,31 +204,31 @@ public class FareCalcActivity extends AppCompatActivity {
         float currentDeviceTime;
         try {
             currentDeviceTime = Float.parseFloat(et_time.getText().toString());
-        }
-        catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             Toast.makeText(FareCalcActivity.this, "Please enter a decimal number for time field.", Toast.LENGTH_SHORT).show();
             return;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Toast.makeText(FareCalcActivity.this, "Some error has occurred.", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        currentDeviceTime *= 30;
+
         if (phase == 3)
-            pow*=1.732;
-        switch(region) {
+            pow *= 1.732;
+        switch (region) {
             case 0:
-                calcFareKSEB(pow,currentDeviceTime);
+                calcFareKSEB(pow, currentDeviceTime);
                 break;
             case 1:
-                calcFareBahrain(pow,currentDeviceTime);
+                calcFareBahrain(pow, currentDeviceTime);
                 break;
             default:
                 Toast.makeText(FareCalcActivity.this, "Some error has occurred.", Toast.LENGTH_SHORT).show();
                 System.exit(0);
         }
         tv_device_name.setText(currentDeviceName);
-        tv_device_time.setText(String.format("%.2f",currentDeviceTime));
+        tv_device_time.setText(String.format("%.2f", currentDeviceTime));
 
         tv_device_name.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
         tv_device_time.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
@@ -225,57 +237,58 @@ public class FareCalcActivity extends AppCompatActivity {
         row.addView(tv_device_name);
         row.addView(tv_device_time);
         device_table.addView(row);
+        tv_devices.setText("");
+        et_time.setText("");
     }
 
 
     public void calcFareKSEB(int pow, float time) {
         double cost = 0;
         totalUnits += pow * time / 1000;
-        if (totalUnits < 100)
-            cost = totalUnits * 2.8;
-        else if (totalUnits < 200)
-            cost = 280 + (totalUnits - 100) * 3.2;
-        else if (totalUnits < 300)
-            cost = 600 + (totalUnits - 200) * 4.2;
-        else if (totalUnits < 400)
-            cost = 1020 + (totalUnits - 300) * 5.8;
-        else if (totalUnits < 500)
-            cost = 1600 + (totalUnits - 400) * 7;
-        else if (totalUnits < 600)
-            cost = totalUnits * 5;
-        else if (totalUnits < 700)
-            cost = totalUnits * 5.7;
-        else if (totalUnits < 800)
-            cost = totalUnits * 6.1;
-        else if (totalUnits < 1000)
+        if (totalUnits <= 50)
+            cost = totalUnits * 2.9;
+        else if (totalUnits <= 100)
+            cost = 50*2.9 + (totalUnits - 50) * 3.4;
+        else if (totalUnits <= 150)
+            cost = 50*2.9 + 50*3.4 + (totalUnits - 100) * 4.5;
+        else if (totalUnits <= 200)
+            cost = 50*2.9 + 50*3.4 + 50*4.5 + (totalUnits - 150) * 6.1;
+        else if (totalUnits <= 250)
+            cost = 50*2.9 + 50*3.4 + 50*4.5 + 50*6.1 + (totalUnits - 200) * 7.3;
+        else if (totalUnits <= 300)
+            cost = totalUnits * 5.5;
+        else if (totalUnits <= 350)
+            cost = totalUnits * 6.2;
+        else if (totalUnits <= 400)
+            cost = totalUnits * 6.5;
+        else if (totalUnits <= 500)
             cost = totalUnits * 6.7;
         else
             cost = totalUnits * 7.5;
         switch (phase) {
             case 1:
-                cost += 40;
+                cost += 30;
                 break;
             case 3:
-                cost += 120;
+                cost += 80;
         }
-        cost += 0.1 * cost;
+        //cost += 0.1 * cost;
         cost = roundTo2Decimals(cost);
         TextView tv_charges = (TextView) findViewById(R.id.tv_charges);
         tv_charges.setText("₹" + cost);
     }
 
     public void calcFareBahrain(int pow, float time) {
-        double cost=0;
+        double cost = 0;
         totalUnits += pow * time / 1000;
-        if(totalUnits<=3000)
-            cost = totalUnits*0.003;
-        else if(totalUnits<=5000)
-            cost = 3000*0.003+(totalUnits-3000)*0.009;
+        if (totalUnits <= 3000)
+            cost = totalUnits * 0.003;
+        else if (totalUnits <= 5000)
+            cost = 3000 * 0.003 + (totalUnits - 3000) * 0.009;
         else
-            cost = 3000*0.003+2000*0.007+(totalUnits-5000)*0.016;
+            cost = 3000 * 0.003 + 2000 * 0.007 + (totalUnits - 5000) * 0.016;
         TextView tv_charges = (TextView) findViewById(R.id.tv_charges);
-        String costToPrint = ""+cost;
-        tv_charges.setText(String.format("%.3f",cost));
+        tv_charges.setText("BHD "+String.format("%.3f", cost));
     }
 
     public void clearData(View v) {

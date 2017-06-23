@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegionSelectionActivity"
-            android:launchMode="singleTop">
+        <activity
+            android:name=".RegionSelectionActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +21,13 @@
         </activity>
         <activity
             android:name=".FareCalcActivity"
-            android:parentActivityName=".RegionSelectionActivity">
+            android:parentActivityName=".RegionSelectionActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".RegionSelectionActivity" />
         </activity>
-<!--
+        <!--
         <activity android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".RegionSelectionActivity">
@@ -32,13 +35,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".RegionSelectionActivity"/>
         </activity>
-
--->
-        <activity android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
-        </activity>
-
-
+        -->
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_about"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".HelpActivity"
+            android:label="@string/title_help"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
