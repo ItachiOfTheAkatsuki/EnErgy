@@ -31,14 +31,15 @@
 
     <string name="EnErgy">EnErgy</string>
     <string name="Version">Version 1.0</string>
-    <string name="address">\t\tEnSpark Systems,\n\t\tKRRA 61-A,\n\t\tKesavadev Road,\n\t\tShastri Nagar\n\t\tPoojappura,\n\t\tTrivandrum - 695012.\n\t\tPh. +917034703915\n\t\twww.en-spark.com</string>
+    <string name="address">\t\tEnSpark Systems,\n\t\tKRRA 61-1,\n\t\tKesavadev Road,\n\t\tPoojappura,\n\t\tTrivandrum - 695012.\n\t\twww.en-spark.com\n\t\tPh. 0471-2343915\n\t\tEmail: info@en-spark.com</string>
     <string name="title_help">Help</string>
     <string name="help_text">The first page lets you select your region.\nThe number of phases in your connection can also be selected. This option can be ignored if it is not applicable in your region.
     \n\nThe second page lets you add the devices. If you select a device from the search suggestions, just enter the corresponding hours used for the device and hit add.\n\n
     If you add a device which is not available in the search suggestions, a second dialog box will pop up asking you to enter the power rating of the device.
     The power rating can easily be found out from the box in which the device was supplied to you, or you could just google your device and check out its company website.\n\n
+        In case you own more than one of a particular device, the recommended method to enter them is to enter each device individually with its corresponding times (i.e., in case you have 5 fans, enter each fan individually with each corresponding time). This will ensure minimum human error. As an alternative you can also enter the device name once and enter the total time for all the individual devices in the time field (i.e., enter fan once and in the time field enter the sum of the times of all 5 fans).\n\n
     As you add devices, the fare will be calculated dynamically and will be displayed at the top.\nThe total charges are calculated for one month</string>
-    <string name="help_disclaimer">DISCLAIMER: The fare calculated and shown by the app are accurate only in ideal situations based on assumptions like device works at exactly the power rating specified by the manufacturer, wiring in your house/building has zero resistance, etc.\n
+    <string name="help_disclaimer">DISCLAIMER: The fare calculated and shown by the app are accurate only in ideal situations based on assumptions like device works at the exact power rating specified by the manufacturer, wiring in your house/building has zero resistance, etc.\n
     The app is intended only to give a rough idea of your electricity bill and may not be accurate. To get accurate results we strongly recommend getting your appliances and wiring checked out by an expert electrician.</string>
 
 </resources>

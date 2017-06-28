@@ -8,12 +8,6 @@
     tools:context="com.example.privy.energy.FareCalcActivity">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -129,7 +123,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/tv_device"
                     android:layout_width="0dp"
-                    android:layout_height="40sp"
+                    android:layout_height="50sp"
                     android:layout_weight="1"
                     android:hint="@string/deviceHint"
                     android:imeOptions="actionDone"
@@ -139,7 +133,7 @@
                 <EditText
                     android:id="@+id/et_time"
                     android:layout_width="0dp"
-                    android:layout_height="40sp"
+                    android:layout_height="50sp"
                     android:layout_weight="1"
                     android:hint="@string/timeHint"
                     android:inputType="numberDecimal"
@@ -167,6 +161,5 @@
                 android:backgroundTint="#1565C0"-->
         </LinearLayout>
 
-    </LinearLayout>
 
 </LinearLayout>
